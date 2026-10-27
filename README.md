@@ -1,98 +1,281 @@
-# sql-data-warehouse-project
-Building a modern data warehouse with SQL Server, including ETL processes, data modeling, and analytics.
+# SQL Data Warehouse Project
 
-# Data Warehouse and Analytics Project
+A modern data warehousing solution built with **Microsoft SQL Server**, designed to integrate CRM and ERP data, implement ETL pipelines, improve data quality, and enable business-driven analytics.
 
-The materials of the data warehouse project: the source files, every script from the videos, and the docs.
+## 📌 Project Overview
 
-You take raw files from two systems, a CRM and an ERP, and build one data warehouse in SQL Server. At the end, the data is clean and ready for analysis.
+This project demonstrates the end-to-end development of a modern data warehouse, from raw data ingestion to analytical reporting. Data from two source systems — CRM and ERP — is consolidated into a centralized repository, transformed into a consistent format, and structured for efficient querying and business intelligence.
 
-**New here? Open the setup guide in the `00_setup` folder.** It walks you through installing SQL Server and creating the database, on Windows and Mac, with the fixes for the common errors.
+The implementation follows the **Medallion Architecture**, using Bronze, Silver, and Gold layers to organize data processing, improve data quality, and deliver analysis-ready datasets.
 
-```
-sql-data-warehouse-project/
-├── 00_setup/               the setup guide, and the one-click Docker start for Mac
-├── 01_datasets/            the six source files the project loads
-│   ├── source_crm/         three files from the CRM system
-│   └── source_erp/         three files from the ERP system
-├── 02_docs/                the requirements, the diagrams and the notes
-├── 03_scripts/             the project scripts, in the order of the videos
-│   ├── init_database.sql   creates the database: run it first
-│   ├── bronze/             loads the raw files
-│   ├── silver/             cleans and prepares the data
-│   └── gold/               builds the tables for analysis
-└── 04_tests/               checks the quality of the silver and gold data
-```
+The repository contains the source datasets, SQL scripts, project documentation, setup instructions, and data quality validation queries required to understand and reproduce the solution.
 
-The project reads the six files from `C:\sql\dwh_project\01_datasets\`. Put the folder there, or change the six paths in `03_scripts/bronze/proc_load_bronze.sql`. The videos show the folders without numbers: `datasets` there is `01_datasets` here, `scripts` is `03_scripts`.
+**Getting Started:** If you are setting up the project for the first time, begin with the setup guide in the `00_setup` directory.
 
 ---
+
 ## 🏗️ Data Architecture
 
-The data architecture for this project follows Medallion Architecture **Bronze**, **Silver**, and **Gold** layers:
+The warehouse follows a three-layer Medallion Architecture.
 
+### 1. Bronze Layer — Raw Data Ingestion
+- Imports source data from CRM and ERP CSV files into SQL Server.
+- Preserves the original structure of the incoming data.
+- Provides a raw-data foundation for subsequent transformations.
+- Uses SQL stored procedures to organize and execute data loading.
 
-1. **Bronze Layer**: Stores raw data as-is from the source systems. Data is ingested from CSV Files into SQL Server Database.
-2. **Silver Layer**: This layer includes data cleansing, standardization, and normalization processes to prepare data for analysis.
-3. **Gold Layer**: Houses business-ready data modeled into a star schema required for reporting and analytics.
+### 2. Silver Layer — Data Cleansing and Transformation
+- Handles missing values, duplicates, and inconsistent records.
+- Standardizes formats, data types, and business attributes.
+- Resolves data quality issues across the source systems.
+- Integrates and prepares datasets for downstream analytical use.
 
----
-## 📖 Project Overview
-
-In this project, you:
-
-1. **Design the architecture:** a modern data warehouse with three layers, bronze, silver and gold.
-2. **Build the ETL pipelines:** load the source files and move the data through the layers.
-3. **Model the data:** facts and dimensions, ready for reports.
-4. **Analyze it:** answer business questions with SQL.
-
----
-
-## 🛠️ Important Links & Tools
-
-- **SQL Server and SSMS:** the setup guide in `00_setup` has the links and every step.
-- **[Git](https://github.com/):** a GitHub account, to save and share your project.
-- **[draw.io](https://www.drawio.com/):** to draw the architecture and the data model.
-- **[Notion template](https://www.notion.com/templates/sql-data-warehouse-project):** the project plan, ready to copy.
-- **[Notion project steps](https://thankful-pangolin-2ca.notion.site/SQL-Data-Warehouse-Project-16ed041640ef80489667cfe2f380b269?pvs=4):** every phase and task of the project.
+### 3. Gold Layer — Business-Ready Data
+- Organizes transformed data into a dimensional model.
+- Implements fact and dimension tables using a **Star Schema**.
+- Supports efficient analytical queries and reporting.
+- Provides a consistent data layer for evaluating sales, customer behavior, and product performance.
 
 ---
 
-## 🚀 Project Requirements
+## 🎯 Project Objectives
 
-### Building the Data Warehouse (Data Engineering)
+The project focuses on the following key areas:
 
-#### Objective
-Develop a modern data warehouse using SQL Server to consolidate sales data, enabling analytical reporting and informed decision-making.
-
-#### Specifications
-- **Data Sources**: Import data from two source systems (ERP and CRM) provided as CSV files.
-- **Data Quality**: Cleanse and resolve data quality issues prior to analysis.
-- **Integration**: Combine both sources into a single, user-friendly data model designed for analytical queries.
-- **Scope**: Focus on the latest dataset only; historization of data is not required.
-- **Documentation**: Provide clear documentation of the data model to support both business stakeholders and analytics teams.
+1. **Data Warehouse Design:** Establish a structured warehouse architecture using Bronze, Silver, and Gold layers.
+2. **ETL Development:** Build SQL-based pipelines to extract, load, and transform data from CRM and ERP source files.
+3. **Data Quality Management:** Identify and resolve data inconsistencies before making datasets available for analysis.
+4. **Dimensional Modeling:** Design fact and dimension tables to support analytical workloads.
+5. **Data Integration:** Consolidate data from multiple operational systems into a unified analytical model.
+6. **SQL Analytics:** Develop queries that uncover business insights and support data-driven decisions.
+7. **Documentation and Testing:** Document the architecture, requirements, and data model, and validate the quality of transformed data.
 
 ---
 
-### BI: Analytics & Reporting (Data Analysis)
+## 📂 Repository Structure
 
-#### Objective
-Develop SQL-based analytics to deliver detailed insights into:
-- **Customer Behavior**
-- **Product Performance**
-- **Sales Trends**
+```text
+sql-data-warehouse-project/
+│
+├── 00_setup/
+│   └── Environment setup guide and Docker configuration
+│
+├── 01_datasets/
+│   ├── source_crm/
+│   │   └── CRM source CSV files
+│   └── source_erp/
+│       └── ERP source CSV files
+│
+├── 02_docs/
+│   └── Requirements, architecture diagrams, and documentation
+│
+├── 03_scripts/
+│   ├── init_database.sql
+│   ├── bronze/
+│   │   └── Raw data ingestion scripts
+│   ├── silver/
+│   │   └── Data cleansing and transformation scripts
+│   └── gold/
+│       └── Dimensional modeling and analytical table scripts
+│
+└── 04_tests/
+    └── Data quality and validation scripts for Silver and Gold
+```
 
-These insights empower stakeholders with key business metrics, enabling strategic decision-making.  
+### Directory Guide
 
+| Directory | Purpose |
+|---|---|
+| `00_setup` | Instructions for configuring the SQL Server environment and initializing the project. |
+| `01_datasets` | Contains six source CSV files distributed across the CRM and ERP systems. |
+| `02_docs` | Stores project specifications, data models, architecture diagrams, and supporting notes. |
+| `03_scripts` | Contains SQL scripts organized by processing layer. |
+| `04_tests` | Includes validation queries for checking data quality and consistency. |
 
 ---
 
+## ⚙️ Technology Stack
 
-## 🛡️ License
+- **Database:** Microsoft SQL Server
+- **Query Language:** T-SQL
+- **Database Management:** SQL Server Management Studio (SSMS)
+- **Data Sources:** CRM and ERP CSV files
+- **Data Processing:** SQL-based ETL pipelines and stored procedures
+- **Data Architecture:** Medallion Architecture
+- **Data Modeling:** Dimensional modeling and Star Schema
+- **Documentation and Diagrams:** Markdown and draw.io
+- **Version Control:** Git and GitHub
 
-[MIT](LICENSE). Use it, change it, share it, with attribution.
+---
 
-## 🌟 About me
+## 🚀 Getting Started
 
-Hi, I’m Shyam Sai. I’m a data professional with experience in analytics, machine learning, and NLP, building data-driven solutions for enterprise clients. Today, I work at the intersection of data science and AI, turning complex business problems into practical, scalable solutions through Python, SQL, and AI-powered analytics.
+### Prerequisites
 
+Before running the project, ensure that you have:
+
+- Microsoft SQL Server installed and running.
+- SQL Server Management Studio (SSMS), or another compatible SQL client.
+- Git installed to clone the repository.
+- The project source datasets available locally.
+
+For macOS users, refer to the setup documentation for the supported Docker-based environment.
+
+### Step 1: Clone the Repository
+
+```bash
+git clone <your-repository-url>
+cd sql-data-warehouse-project
+```
+
+Replace `<your-repository-url>` with the URL of your GitHub repository.
+
+### Step 2: Configure the Environment
+
+Open the `00_setup` directory and follow the setup guide to configure SQL Server and prepare the database environment.
+
+### Step 3: Initialize the Database
+
+Execute the following script in SQL Server Management Studio:
+
+```sql
+03_scripts/init_database.sql
+```
+
+Run the script using SSMS rather than entering the file path as a SQL statement.
+
+### Step 4: Configure Source File Paths
+
+The Bronze loading procedure expects the datasets at the following location by default:
+
+```text
+C:\sql\dwh_project\01_datasets\
+```
+
+Either place the project datasets in the expected directory or update the six source file paths in:
+
+```text
+03_scripts/bronze/proc_load_bronze.sql
+```
+
+Ensure that SQL Server has the required permissions to access the files.
+
+### Step 5: Execute the ETL Pipeline
+
+Run the SQL scripts in the intended processing order:
+
+1. **Bronze:** Load the raw CRM and ERP datasets.
+2. **Silver:** Clean, standardize, and integrate the ingested data.
+3. **Gold:** Build the analytical tables and dimensional model.
+
+Follow the script dependencies and execution instructions documented in the repository.
+
+### Step 6: Validate the Results
+
+Execute the relevant scripts in `04_tests` to verify the quality and consistency of the Silver and Gold datasets.
+
+---
+
+## 📊 Business Intelligence and Analytics
+
+The data warehouse provides a foundation for SQL-based analysis across three major business areas.
+
+### Customer Behavior
+- Analyze customer attributes and purchasing patterns.
+- Understand customer distribution and sales contribution.
+- Identify trends that can support customer-focused business decisions.
+
+### Product Performance
+- Evaluate product-level sales performance.
+- Compare sales across product categories and product lines.
+- Identify high-performing products and opportunities for improvement.
+
+### Sales Trends
+- Analyze sales performance across available time periods.
+- Compare sales across customers and products.
+- Calculate relevant business metrics to support performance monitoring.
+
+These analyses demonstrate how integrated, high-quality data can be transformed into actionable business insights.
+
+---
+
+## 📋 Project Requirements
+
+### Data Engineering
+
+**Objective:** Develop a modern SQL Server data warehouse that consolidates sales-related data from CRM and ERP systems for analytical workloads.
+
+**Functional requirements:**
+
+- **Source Integration:** Ingest data from two operational systems provided as CSV files.
+- **Data Transformation:** Clean and standardize the source data before integrating it.
+- **Data Quality:** Address inconsistencies and validate the transformed datasets.
+- **Unified Data Model:** Combine data from both systems into a consistent analytical structure.
+- **Data Scope:** Focus on the latest available dataset; historical tracking and historization are outside the current scope.
+- **Documentation:** Maintain clear documentation of the architecture, transformations, and dimensional model.
+
+### Analytics and Reporting
+
+**Objective:** Use SQL queries to extract business insights from the curated warehouse.
+
+The analytical scope includes:
+
+- Customer behavior and purchasing patterns.
+- Product performance and sales contribution.
+- Sales trends and business performance metrics.
+
+---
+
+## 🔗 Resources
+
+- [GitHub](https://github.com/) — Version control and project hosting.
+- [draw.io](https://www.drawio.com/) — Architecture and data model diagrams.
+- [Notion Templates](https://www.notion.com/templates/sql-data-warehouse-project) — Project planning resources.
+- [Project Documentation and Roadmap](https://thankful-pangolin-2ca.notion.site/SQL-Data-Warehouse-Project-16ed041640ef80489667cfe2f380b269?pvs=4) — Project phases and implementation tasks.
+
+For installation instructions and environment-specific troubleshooting, refer to the files in `00_setup`.
+
+---
+
+## 🧪 Testing and Data Validation
+
+Data quality checks are included to help ensure that the transformed datasets are suitable for analytical use.
+
+The test scripts focus on:
+
+- Data completeness and consistency.
+- Duplicate and invalid record detection.
+- Validation of key relationships between tables.
+- Consistency of the Silver and Gold layer outputs.
+
+Run the relevant validation scripts after the pipeline completes to identify potential data quality issues.
+
+---
+
+## 📈 Key Learning Outcomes
+
+This project provides practical experience in:
+
+- Designing a modern data warehouse from the ground up.
+- Implementing layered data processing with Medallion Architecture.
+- Developing SQL-based ETL pipelines and stored procedures.
+- Cleaning and integrating data from multiple source systems.
+- Designing fact tables, dimension tables, and Star Schemas.
+- Writing SQL queries for business analysis.
+- Documenting database architecture and validating data quality.
+
+---
+
+## 📄 License
+
+This project is distributed under the [MIT License](LICENSE). You may use, modify, and distribute the code in accordance with the license terms.
+
+---
+
+## 👋 About Me
+
+Hi, I'm **Shyam Sai**, a data professional with experience in analytics, machine learning, and natural language processing. I enjoy solving complex business problems through data engineering, AI, and analytical solutions.
+
+Through projects like this, I aim to strengthen my expertise in SQL, data warehousing, data modeling, and end-to-end data pipeline development while building practical solutions that bridge raw data and business insights.
+
+**Let's connect and build data-driven solutions!**
